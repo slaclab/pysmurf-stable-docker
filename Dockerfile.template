@@ -1,4 +1,4 @@
-FROM tidair/pysmurf-server-base:v4.0.0-rc15
+FROM tidair/pysmurf-server-base:%%PYSMURF_SERVER_BASE_VERSION%%
 
 # Prepare directory to hold FW and config file
 RUN mkdir -p /tmp/fw/ && chmod -R a+rw /tmp/fw/
@@ -11,4 +11,4 @@ COPY local_files/*.yml    /tmp/fw/
 WORKDIR /
 ARG yml_file_name
 ARG server_args
-CMD ["-d","/tmp/fw/defaults_lbonly_c03_bay0.yml",--disable-bay1]
+CMD ["-d","/tmp/fw/%%YML_FILE_NAME%%",%%SERVER_ARGS%%]
