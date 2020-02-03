@@ -55,11 +55,15 @@ else
     rm -rf yml_repo
 fi
 
+# Divide the server argument string into a list of quoted substring, divided by comas.
+# This is the format that the Dockerfile uses
+server_args_list=$(echo \"${server_args}\" | sed 's/\s/","/g')
+
 # Generate the Dockerfile from the template
 cat Dockerfile.template \
         | sed s/%%PYSMURF_SERVER_BASE_VERSION%%/${pysmurf_server_base_version}/g \
         | sed s/%%YML_FILE_NAME%%/${yml_file_name}/g \
-        | sed s/%%SERVER_ARGS%%/"${server_args}"/g \
+        | sed s/%%SERVER_ARGS%%/"${server_args_list}"/g \
         > Dockerfile
 
 # Build the docker image and push it to Dockerhub
