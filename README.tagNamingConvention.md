@@ -9,7 +9,7 @@ This document describe the naming convention use to tag the docker images.
 The tags used on this repository have the following 3-digit format:
 
 ```
-R<A>.<B>.<C>
+v<A>.<B>.<C>
 ```
 
 Where:
