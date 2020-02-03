@@ -45,6 +45,9 @@ fi
 # Get yml file
 if [ ${yml_use_local:-n} = "y" ]; then
     echo "Using local yml file..."
+
+    # We still need to know to name of this file, so let's get it
+    yml_file_name=$(find local_files/ -name *.yml -exec basename {} \;)
 else
     echo "Getting yml file from ${yml_repo}"
 
