@@ -41,6 +41,15 @@ When a tag is pushed to this github repository, a new Docker image is automatica
 
 The resulting docker image is tagged with the same git tag string (as returned by `git describe --tags --always`).
 
+The image is built based on a user defined configuration, using the [definitions.sh](definitions.sh) file. In that file, the user can define:
+- The `pysmurf-server-base` image version,
+- The firmware image (mcs) file,
+- The pyrogue definitnion (zip) file,
+- The configuration (yml) file, and
+- The startup arguments
+
+For more information about how to defined these parameters see [README.buildDefinitions.md](README.buildDefinitions.md).
+
 ## How to get the container
 
 To get the docker image, first you will need to install the docker engine in you host OS. Then you can pull a copy by running:
