@@ -11,7 +11,7 @@ The docker image generated from this repository built based on a user defined co
 
 So, the flow to release a new image is:
 - Update the [definitions.sh](definitions.sh) file and push it,
-- Push a new tag (see [README.md](README.md) for tag naming convention).
+- Push a new tag (see [README.tagNamingConvention.md](README.tagNamingConvention.md) for tag naming convention).
 
 A new docker image will be automatically generated (using travis) following the given definitions. The resulting image will be pushed to its [Dockerhub repository](https://hub.docker.com/r/tidair/pysmurf-server).
 
