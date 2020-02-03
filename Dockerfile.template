@@ -8,7 +8,8 @@ COPY local_files/*.mcs.gz /tmp/fw/
 COPY local_files/*.zip    /tmp/fw/
 COPY local_files/*.yml    /tmp/fw/
 
+# Set the working directory to the root
 WORKDIR /
-ARG yml_file_name
-ARG server_args
+
+# Update the arguments passed to the base entrypoint
 CMD ["-d","/tmp/fw/%%YML_FILE_NAME%%",%%SERVER_ARGS%%]
