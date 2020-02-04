@@ -11,5 +11,5 @@ COPY local_files/*.yml    /tmp/fw/
 # Set the working directory to the root
 WORKDIR /
 
-# Update the arguments passed to the base entrypoint
-CMD ["-d","/tmp/fw/%%YML_FILE_NAME%%",%%SERVER_ARGS%%]
+# Define the entrypoint
+ENTRYPOINT ["start_server.sh","-d","/tmp/fw/%%YML_FILE_NAME%%",%%SERVER_ARGS%%]
