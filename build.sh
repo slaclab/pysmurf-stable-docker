@@ -70,7 +70,7 @@ cat Dockerfile.template \
         > Dockerfile
 
 # Build the docker image and push it to Dockerhub
-docker build -t ${docker_org_name}/${docker_repo} || exit 1
+docker build -t ${docker_org_name}/${docker_repo} . || exit 1
 docker tag ${docker_org_name}/${docker_repo} ${docker_org_name}/${docker_repo}:${tag} || exit 1
 docker push ${docker_org_name}/${docker_repo}:${tag} || exit 1
 
