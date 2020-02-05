@@ -11,5 +11,8 @@ COPY local_files/*.yml    /tmp/fw/
 # Set the working directory to the root
 WORKDIR /
 
+# Expose the server arguments into a environmental variable
+ENV START_SERVER_ARGS "-d /tmp/fw/%%YML_FILE_NAME%% %%SERVER_ARGS%%"
+
 # Define the entrypoint
 ENTRYPOINT ["start_server.sh","-d","/tmp/fw/%%YML_FILE_NAME%%",%%SERVER_ARGS%%]
