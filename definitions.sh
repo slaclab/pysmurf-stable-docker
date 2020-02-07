@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Define the pysmurf-server-base version
-pysmurf_server_base_version=v4.0.0-rc15
+pysmurf_server_base_version=v4.0.0-rc16
 
 # Define the MCS file location
 # - Set 'mcs_use_local' to 'y' if you provide a local copy of the
