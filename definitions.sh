@@ -34,7 +34,7 @@ zip_file_name=
 # - Set 'yml_use_local' to 'n' if you want to get the yml file
 #   from its github repository. You can define the repository, tag, and
 #   file name.
-yml_use_local=y
+yml_use_local=n
 yml_repo=https://github.com/slaclab/smurf_cfg
 yml_repo_tag=v0.0.3
 yml_file_name=defaults_lbonly_c03_bay0.yml
