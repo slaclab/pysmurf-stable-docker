@@ -37,7 +37,7 @@ zip_file_name=
 yml_use_local=n
 yml_repo=https://github.com/slaclab/smurf_cfg
 yml_repo_tag=v0.0.3
-yml_file_name=defaults_lbonly_c03_bay0.yml
+yml_file_name=defaults_lbonly_c02_bay0.yml
 
 # Define server startup arguments
 # - Add here a string with all the wanted startup arguments
