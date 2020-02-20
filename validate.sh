@@ -5,6 +5,10 @@
 #############
 # FUNCTIONS #
 #############
+# Check if a tag exists on a github repository
+# Arguments:
+# - first: github repository url,
+# - second: tag name
 check_if_tag_exist()
 {
     local repo=$1
@@ -12,6 +16,11 @@ check_if_tag_exist()
     git ls-remote --refs --tag ${repo} | grep -q refs/tags/${tag} > /dev/null
 }
 
+# Check if a asset file exist on a tag version on a github repository
+# Arguments:
+# - first: github repository url,
+# - second: tag name,
+# - third: asset file name
 check_if_asset_exist()
 {
     local repo=$1
@@ -20,6 +29,11 @@ check_if_asset_exist()
     curl --head --silent --fail ${repo}/releases/download/${tag}/${file} > /dev/null
 }
 
+# Check if file exist on a tag version on a github repository
+# Arguments:
+# - first: github repository url,
+# - second: tag name,
+# - third: file name (must be a full path on that repository)
 check_if_file_exist()
 {
     local repo=$1
@@ -28,6 +42,7 @@ check_if_file_exist()
     curl --head --silent --fail ${repo}/blob/${tag}/${file} > /dev/null
 }
 
+# Exit with an error message, and with return code = 1
 exit_on_error()
 {
     echo
@@ -36,12 +51,17 @@ exit_on_error()
     exit 1
 }
 
+# Exist with a success message and with return core = 0
 exit_on_success()
 {
     echo
     echo "Success! The definitions.sh file is correct!"
     echo
 }
+
+#############
+# MAIN BODY #
+#############
 
 # Load the user definitions
 . definitions.sh
