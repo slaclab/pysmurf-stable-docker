@@ -1,3 +1,5 @@
+os: linux
+
 language: minimal
 
 services:
@@ -21,7 +23,28 @@ jobs:
         - export DOCKER_TAG=`git describe --tags --always`
         # Login to docker
         - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_ORG_NAME}" --password-stdin;
-
       script:
         # Build the docker image
-        - ./build.sh ${DOCKER_TAG}
+        - ./scripts/build.sh
+      after_script:
+        # Update the "RELEASES.md" table
+        - ./scripts/update_release_table.sh
+      before_deploy:
+        # Load the environmental variables generated during the build process.
+        # These variables are going to be used during "deploy"
+        - . vars.env
+      deploy:
+        provider: releases
+        token: ${GITHUB_TOKEN}
+        # The release name is generated during the build process
+        name: ${release_name}
+        # The release notes are generated during the build process
+        release_notes: ${release_description}
+        # Attach the original definitions.sh script as well as the
+        # resulting Dockerfile file as asset.
+        file:
+          - Dockerfile
+          - definitions.sh
+        on:
+          tags: true
+        edge: true
