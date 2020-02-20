@@ -128,7 +128,7 @@ if [ -z ${mcs_repo_tag} ]; then
         echo "Done!"
         echo
         echo "A correct MCS was defined. This local file will be used:"
-        echo "  ${local_mcs_file_name}"
+        echo "  ${mcs_file_name}"
         echo "==========================================="
         echo
 
@@ -213,7 +213,7 @@ if [ -z ${zip_repo_tag} ]; then
         echo "Done!"
         echo
         echo "A correct ZIP was defined. This local file will be used:"
-        echo "  ${local_zip_file_name}"
+        echo "  ${zip_file_name}"
         echo "==========================================="
         echo
 
@@ -298,7 +298,7 @@ if [ -z ${yml_repo_tag} ]; then
         echo "Done!"
         echo
         echo "A correct YML was defined. This local file will be used:"
-        echo "  ${local_yml_file_name}"
+        echo "  ${yml_file_name}"
         echo "==========================================="
         echo
 
