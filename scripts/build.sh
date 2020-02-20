@@ -22,13 +22,7 @@ if [ -z ${mcs_use_local+x} ]; then
     echo "Getting mcs file from ${mcs_repo}"
 
     # Get the mcs file assent
-    #wget -O local_files/${mcs_file_name} ${mcs_repo}/releases/${mcs_repo_tag}/download/${mcs_file_name} || exit 1
-
-    # If the mcs is not an asset in github, it can be copied this way:
-    # It is needed the extra definition 'mcs_repo_target_name', indicating the target name.
-    #   git clone ${mcs_repo} -b ${mcs_repo_tag} mcs_repo
-    #   mv mcs_repo/firmware/targets/${mcs_repo_target_name}/images/${mcs_file_name} local_files
-    #   rm -rf mcs_repo
+    wget -O local_files/${mcs_file_name} ${mcs_repo}/releases/${mcs_repo_tag}/download/${mcs_file_name} || exit 1
 else
     echo "Using local mcs file..."
 fi
@@ -38,13 +32,7 @@ if [ -z ${zip_use_local+x} ]; then
     echo "Getting zip file from ${zip_repo}"
 
     # Get the zip file asset
-    #wget -O local_files/${zip_file_name} ${zip_repo}/releases/${zip_repo_tag}/download/${zip_file_name} || exit 1
-
-    # If the mcs is not an asset in github, it can be copied this way:
-    # It is needed the extra definition 'zip_repo_target_name', indicating the target name.
-    #   git clone ${zip_repo} -b ${zip_repo_tag} zip_repo
-    #   mv zip_repo/firmware/targets/${zip_repo_target_name}/images/${zip_file_name} local_files
-    #   rm -rf zip_repo
+    wget -O local_files/${zip_file_name} ${zip_repo}/releases/${zip_repo_tag}/download/${zip_file_name} || exit 1
 else
     echo "Using local zip file..."
 fi
@@ -74,9 +62,9 @@ cat Dockerfile.template \
         > Dockerfile
 
 # Build the docker image and push it to Dockerhub
-#docker build -t ${docker_org_name}/${docker_repo} . || exit 1
-#docker tag ${docker_org_name}/${docker_repo} ${docker_org_name}/${docker_repo}:${TRAVIS_TAG} || exit 1
-#docker push ${docker_org_name}/${docker_repo}:${TRAVIS_TAG} || exit 1
+docker build -t ${docker_org_name}/${docker_repo} . || exit 1
+docker tag ${docker_org_name}/${docker_repo} ${docker_org_name}/${docker_repo}:${TRAVIS_TAG} || exit 1
+docker push ${docker_org_name}/${docker_repo}:${TRAVIS_TAG} || exit 1
 
 echo "Docker image '${docker_org_name}/${docker_repo}:${TRAVIS_TAG}' pushed"
 
