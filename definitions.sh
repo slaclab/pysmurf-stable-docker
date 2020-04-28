@@ -45,8 +45,10 @@ zip_file_name=
 
 # Define the YML file location:
 # =============================
-# - Set the repository, tag, and name of the YML file you want to
-#   use. It will be downloaded from the github repository.
+# - Set the repository and tag you want to use. The repository
+#   will be cloned from github.
+# - You can also defined an specific YAML file name, If so, it
+#   will be added to the server startup argument list.
 # - You can use a local file instead. In this case you must leave
 #   the 'yml_repo_tag' variable empty, and provide a local copy of
 #   the YML file in the 'local_files' directory.
@@ -56,8 +58,8 @@ zip_file_name=
 # - If 'yml_repo_tag' is defined, local files will be ignored.
 # - Normally, you should need to change the repository URL.
 yml_repo=https://github.com/slaclab/smurf_cfg
-yml_repo_tag=v0.0.3
-yml_file_name=2019_06_04_Dual_Band_AMC_Config_LBx2.yml
+yml_repo_tag=v1.0.0
+yml_file_name=
 
 # Define server startup arguments
 # ===============================
