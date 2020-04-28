@@ -4,15 +4,13 @@ FROM tidair/pysmurf-server-base:%%PYSMURF_SERVER_BASE_VERSION%%
 RUN mkdir -p /tmp/fw/ && chmod -R a+rw /tmp/fw/
 
 # Copy all firmware related files, which are in the local_files directory
-COPY local_files/*.mcs.gz /tmp/fw/
-COPY local_files/*.zip    /tmp/fw/
-COPY local_files/*.yml    /tmp/fw/
+COPY local_files /tmp/fw
 
 # Set the working directory to the root
 WORKDIR /
 
 # Expose the server arguments into a environmental variable
-ENV START_SERVER_ARGS "-d /tmp/fw/%%YML_FILE_NAME%% %%SERVER_ARGS%%"
+ENV START_SERVER_ARGS "%%SERVER_ARGS_ENV%%"
 
 # Define the entrypoint
-ENTRYPOINT ["start_server.sh","-d","/tmp/fw/%%YML_FILE_NAME%%",%%SERVER_ARGS%%]
+ENTRYPOINT ["start_server.sh"%%SERVER_ARGS%%]

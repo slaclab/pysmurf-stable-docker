@@ -7,7 +7,7 @@
 #   as a base.
 # - Normally, you should need to change the repository URL.
 pysmurf_repo=https://github.com/slaclab/pysmurf
-pysmurf_server_base_version=v4.0.0-rc16
+pysmurf_server_base_version=v4.0.0
 
 # Define the MCS file location:
 # =============================
@@ -22,8 +22,8 @@ pysmurf_server_base_version=v4.0.0-rc16
 # - If 'mcs_repo_tag' is defined, local files will be ignored.
 # - Normally, you should need to change the repository URL.
 mcs_repo=https://github.com/slaclab/cryo-det
-mcs_repo_tag=
-mcs_file_name=
+mcs_repo_tag=MicrowaveMuxBpEthGen2_v0.0.5
+mcs_file_name=MicrowaveMuxBpEthGen2-0x00000020-20191203110805-mdewart-83947a3.mcs.gz
 
 # Define the ZIP file location:
 # =============================
@@ -41,12 +41,14 @@ mcs_file_name=
 # - Normally, you should need to change the repository URL.
 zip_repo=${mcs_repo}
 zip_repo_tag=${mcs_repo_tag}
-zip_file_name=
+zip_file_name=rogue_MicrowaveMuxBpEthGen2_v0.0.5.zip
 
 # Define the YML file location:
 # =============================
-# - Set the repository, tag, and name of the YML file you want to
-#   use. It will be downloaded from the github repository.
+# - Set the repository and tag you want to use. The repository
+#   will be cloned from github.
+# - You can also defined an specific YAML file name, If so, it
+#   will be added to the server startup argument list.
 # - You can use a local file instead. In this case you must leave
 #   the 'yml_repo_tag' variable empty, and provide a local copy of
 #   the YML file in the 'local_files' directory.
@@ -56,12 +58,13 @@ zip_file_name=
 # - If 'yml_repo_tag' is defined, local files will be ignored.
 # - Normally, you should need to change the repository URL.
 yml_repo=https://github.com/slaclab/smurf_cfg
-yml_repo_tag=v0.0.3
-yml_file_name=2019_06_04_Dual_Band_AMC_Config_LBx2.yml
+yml_repo_tag=v1.0.0
+yml_file_name=
 
 # Define server startup arguments
 # ===============================
-# - Add here a string with all the wanted startup arguments
+# - Add here a string with all the wanted startup arguments.
+#   Note that if you defined an specific YML file, then the arguments
+#   '--disable-hw-detect' as well as '-d' pointing to that file will be
+#   automatically added. So, you don't need to added then here.
 server_args=""
-
-

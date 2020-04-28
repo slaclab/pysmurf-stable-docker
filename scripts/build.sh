@@ -22,7 +22,7 @@ if [ -z ${mcs_use_local+x} ]; then
     echo "Getting mcs file from ${mcs_repo}"
 
     # Get the mcs file assent
-    wget -O local_files/${mcs_file_name} ${mcs_repo}/releases/${mcs_repo_tag}/download/${mcs_file_name} || exit 1
+    wget -O local_files/${mcs_file_name} ${mcs_repo}/releases/download/${mcs_repo_tag}/${mcs_file_name} || exit 1
 else
     echo "Using local mcs file..."
 fi
@@ -32,7 +32,7 @@ if [ -z ${zip_use_local+x} ]; then
     echo "Getting zip file from ${zip_repo}"
 
     # Get the zip file asset
-    wget -O local_files/${zip_file_name} ${zip_repo}/releases/${zip_repo_tag}/download/${zip_file_name} || exit 1
+    wget -O local_files/${zip_file_name} ${zip_repo}/releases/download/${zip_repo_tag}/${zip_file_name} || exit 1
 else
     echo "Using local zip file..."
 fi
@@ -41,24 +41,43 @@ fi
 if [ -z ${yml_use_local+x} ]; then
     echo "Getting yml file from ${yml_repo}"
 
-    # This repository doesn't use assent, so we need to clone the repository
-    # and copy the file we want
-    git clone ${yml_repo} -b ${yml_repo_tag} yml_repo || exit 1
-    mv yml_repo/defaults/${yml_file_name} local_files || exit 1
-    rm -rf yml_repo
+    if [ -z ${yml_file_name} ]; then
+        # If an specific file was not define, clone the whole repository
+        git -C local_files clone ${yml_repo} -b ${yml_repo_tag} || exit 1
+    else
+        # If an specific file was defined, copy it
+        git clone ${yml_repo} -b ${yml_repo_tag} yml_repo || exit 1
+        mv yml_repo/defaults/${yml_file_name} local_files || exit 1
+        rm -rf yml_repo
+
+        # Additionally, when an specific YML file is defined, add the '--disable-hw-detect'
+        # option to the list of server arguments as well as the specified YML file using the
+        # '-d' option.
+        server_args+=" --disable-hw-detect -d /tmp/fw/${yml_file_name}"
+    fi
+
 else
     echo "Using local yml file..."
 fi
 
-# Divide the server argument string into a list of quoted substring, divided by comas.
+# Remove any white spaces and the beginning or end of the server argument string.
+server_args=$(echo ${server_args} | sed 's/^\s//g'| sed 's/\s$//g')
+
+# Then divide it into a list of quoted substring, divided by comas.
 # This is the format that the Dockerfile uses
-server_args_list=$(echo \"${server_args}\" | sed 's/\s/","/g')
+if [ -z "${server_args}" ]; then
+    # If the server argument is empty, then the list will be empty
+    server_args_list=""
+else
+    # Otherwise, generate the list.
+    server_args_list=$(echo ,\"${server_args}\" | sed 's/\s/","/g')
+fi
 
 # Generate the Dockerfile from the template
 cat Dockerfile.template \
-        | sed s/%%PYSMURF_SERVER_BASE_VERSION%%/${pysmurf_server_base_version}/g \
-        | sed s/%%YML_FILE_NAME%%/${yml_file_name}/g \
-        | sed s/%%SERVER_ARGS%%/"${server_args_list}"/g \
+        | sed "s|%%SERVER_ARGS%%|"${server_args_list}"|g" \
+        | sed "s|%%SERVER_ARGS_ENV%%|${server_args}|g" \
+        | sed "s|%%PYSMURF_SERVER_BASE_VERSION%%|${pysmurf_server_base_version}|g" \
         > Dockerfile
 
 # Build the docker image and push it to Dockerhub
