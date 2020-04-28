@@ -4,7 +4,7 @@ FROM tidair/pysmurf-server-base:%%PYSMURF_SERVER_BASE_VERSION%%
 RUN mkdir -p /tmp/fw/ && chmod -R a+rw /tmp/fw/
 
 # Copy all firmware related files, which are in the local_files directory
-COPY local_files/* /tmp/fw/
+COPY local_files /tmp/fw
 
 # Set the working directory to the root
 WORKDIR /
