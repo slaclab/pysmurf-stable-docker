@@ -44,8 +44,8 @@ The `mcs` file if downloaded from the firmware's github repository, from the ass
 For example:
 ```
 mcs_repo=https://github.com/slaclab/cryo-det
-mcs_repo_tag=MicrowaveMuxBpEthGen2_v1.2.14
-mcs_file_name=MicrowaveMuxBpEthGen2-0x00000016-20190724191903-mdewart-8234f45.mcs.gz
+mcs_repo_tag=MicrowaveMuxBpEthGen2_v0.0.5
+mcs_file_name=MicrowaveMuxBpEthGen2-0x00000020-20191203110805-mdewart-83947a3.mcs.gz
 ```
 
 A local `mcs` can be used, instead of downloading it from github. In that case, the file must be added to the [local_files](local_files) directory of this repository, and the variable `mcs_repo_tag` must be empty.
@@ -62,24 +62,28 @@ In general, this zip file will come from the same repository and tag version as 
 ```
 zip_repo=${mcs_repo}
 zip_repo_tag=${mcs_repo_tag}
-zip_file_name=rogue_MicrowaveMuxBpEthGen2_v1.2.14.zip
+zip_file_name=rogue_MicrowaveMuxBpEthGen2_v0.0.5.zip
 ```
 
 A local `zip` can be used, instead of downloading it from github. In that case, the file must be added to the [local_files](local_files) directory of this repository, and the variable `zip_repo_tag` must be empty.
 
 ### The configuration (`yml`) file
 
-The `yml` file if downloaded from the SMuRF configuration github repository, from a given tagged release. These three variables are used to defined which file to use
+The `yml` file(s) are downloaded from the SMuRF configuration github repository, from a given tagged release. These three variables are used to defined which file to use
 
 - `yml_repo`: points to the SMuRF configuration github repository,
 - `yml_repo_tag`: points to the specific tagged release version to use, and
-- `yml_file_name`: defines the name of the `mcs` file.
+- `yml_file_name`: defines the name of the `yml` file (optional).
+
+If `yml_file_name` is not defined, them the whole repository will be copied into the docker image. This will allow the image to be used with the hardware auto-detection feature, in which case the appropriate YML file is selected at runtime.
+
+Otherwise, if `yml_file_name` is defined, only that file will be copied to the docker image and it will be passed as a startup argument to the server startup list of argument using the `-d` option. The option `--disable-hw-detect` will also be automatically added to the list of arguments. You will need to manually pass the appropriate `--disable-bayX` option to the list of startup arguments if needed, as describe in [the startup arguments](#the-startup-arguments) section.
 
 For example:
 ```
 yml_repo=https://github.com/slaclab/smurf_cfg
-yml_repo_tag=v0.0.2
-yml_file_name=defaults_lbonly_c03_bay0.yml
+yml_repo_tag=v1.0.0
+yml_file_name=
 ```
 
 A local `yml` can be used, instead of downloading it from github. In that case, the file must be added to the [local_files](local_files) directory of this repository, and the variable `yml_repo_tag` must be empty.
