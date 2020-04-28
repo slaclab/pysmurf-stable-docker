@@ -53,7 +53,7 @@ if [ -z ${yml_use_local+x} ]; then
         # Additionally, when an specific YML file is defined, add the '--disable-hw-detect'
         # option to the list of server arguments as well as the specified YML file using the
         # '-d' option.
-        server_args+=" --disable-hw-detect -d /tmp/fw/${yml_file_name}"
+        server_args+=" --disable-hw-detect -d \/tmp\/fw\/${yml_file_name}"
     fi
 
 else
