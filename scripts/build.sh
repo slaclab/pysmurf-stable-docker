@@ -63,7 +63,7 @@ fi
 # Remove any white spaces and the beginning or end of the server argument string.
 # Then divide it into a list of quoted substring, divided by comas.
 # This is the format that the Dockerfile uses
-server_args_list=$(echo \"${server_args}\" | sed 's/^\s*//g'| sed 's/\s*$//g' | sed 's/\s/","/g')
+server_args_list=$(echo \"${server_args}\" | sed 's/^"\s/"/g'| sed 's/\s"$/"/g' | sed 's/\s/","/g')
 
 # Generate the Dockerfile from the template
 cat Dockerfile.template \
