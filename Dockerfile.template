@@ -10,7 +10,7 @@ COPY local_files /tmp/fw
 WORKDIR /
 
 # Expose the server arguments into a environmental variable
-ENV START_SERVER_ARGS "%%SERVER_ARGS%%"
+ENV START_SERVER_ARGS "%%SERVER_ARGS_ENV%%"
 
 # Define the entrypoint
 ENTRYPOINT ["start_server.sh"%%SERVER_ARGS%%]

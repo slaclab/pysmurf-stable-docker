@@ -76,6 +76,7 @@ fi
 # Generate the Dockerfile from the template
 cat Dockerfile.template \
         | sed "s|%%SERVER_ARGS%%|"${server_args_list}"|g" \
+        | sed "s|%%SERVER_ARGS_ENV%%|${server_args}|g" \
         | sed "s|%%PYSMURF_SERVER_BASE_VERSION%%|${pysmurf_server_base_version}|g" \
         > Dockerfile
 
