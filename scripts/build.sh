@@ -65,7 +65,13 @@ server_args=$(echo ${server_args} | sed 's/^\s//g'| sed 's/\s$//g')
 
 # Then divide it into a list of quoted substring, divided by comas.
 # This is the format that the Dockerfile uses
-server_args_list=$(echo \"${server_args}\" | sed 's/\s/","/g')
+if [ -z "${server_args}" ]; then
+    # If the server argument is empty, then the list will be empty
+    server_args_list=""
+else
+    # Otherwise, generate the list.
+    server_args_list=$(echo ,\"${server_args}\" | sed 's/\s/","/g')
+fi
 
 # Generate the Dockerfile from the template
 cat Dockerfile.template \

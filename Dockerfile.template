@@ -13,4 +13,4 @@ WORKDIR /
 ENV START_SERVER_ARGS "%%SERVER_ARGS%%"
 
 # Define the entrypoint
-ENTRYPOINT ["start_server.sh",%%SERVER_ARGS%%]
+ENTRYPOINT ["start_server.sh"%%SERVER_ARGS%%]
