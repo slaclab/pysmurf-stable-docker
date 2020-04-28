@@ -33,10 +33,14 @@ fi
 
 release_description+="
 - **YML file:** "
-release_new_row+="${yml_file_name} "
 if [ -z ${yml_use_local+x} ]; then
-    release_description+="[${yml_file_name}](${yml_repo}/blob/${yml_repo_tag}/defaults/${yml_file_name})"
-    release_new_row+="(${yml_repo_tag}) | "
+    if [ -z ${yml_file_name} ]; then
+        release_description+="Full repo ${yml_repo}, version [${yml_repo_tag}](${yml_repo}/tree/${yml_repo_tag})"
+        release_new_row+="Full repo (${yml_repo_tag}) | "
+    else
+        release_description+="[${yml_file_name}](${yml_repo}/blob/${yml_repo_tag}/defaults/${yml_file_name}) (${yml_repo_tag})"
+        release_new_row+="${yml_file_name} (${yml_repo_tag}) | "
+    fi
 else
     release_description+="Local copy [${yml_file_name}](${this_repo}/blob/${TRAVIS_TAG}/local_files/${yml_file_name})"
     release_new_row+="(local copy) | "
