@@ -44,7 +44,7 @@ fi
 
 release_description+="
 - **Server arguments:** "
-if ! [ -z ${server_args} ]; then
+if ! [ -z "${server_args}" ]; then
     release_description+="\\\`${server_args}\\\`"
 fi
 release_new_row+="${server_args}"
