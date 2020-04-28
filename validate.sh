@@ -307,45 +307,52 @@ if [ -z ${yml_repo_tag} ]; then
     fi
 else
     echo "Tag \"${yml_repo_tag}\" was defined."
+fi
 
-    printf "Checking is file name was defined...      "
-    if [ -z ${yml_file_name} ]; then
-        echo "Failed!"
-        echo
-        echo "File name was not defined!"
-        exit_on_error
-    else
-        echo "File name \"${yml_file_name}\" was defined."
-    fi
+printf "Checking is tagged release exist...       "
+check_if_tag_exist ${yml_repo} ${yml_repo_tag}
+if [ $? == 0 ]; then
+    echo "Release exist!"
+else
+    echo "Failed!"
+    echo
+    echo "Release \"${yml_repo_tag}\" does not exist in repository \"${yml_repo}\"!"
+    exit_on_error
+fi
 
-    printf "Checking is tagged release exist...       "
-    check_if_tag_exist ${yml_repo} ${yml_repo_tag}
+printf "Checking is file name was defined...      "
+if [ -z ${yml_file_name} ]; then
+    echo "An specific file was not defined."
+
+    # At this point the definition of the YML file is correct.
+    # We are not going to use an specific file name from the repository.
+    echo "Done!"
+    echo
+    echo "A correct YML repository and tag were defined. An specific YML will not be used."
+    echo "We will use the repository ${yml_repo}, tagged version ${yml_repo_tag}"
+    echo "==========================================="
+    echo
+else
+    echo "File name \"${yml_file_name}\" was defined."
+
+    printf "Checking if file exist on that release... "
+    check_if_file_exist ${yml_repo} ${yml_repo_tag} "defaults/${yml_file_name}"
     if [ $? == 0 ]; then
-        echo "Release exist!"
-        printf "Checking if file exist on that release... "
-        check_if_file_exist ${yml_repo} ${yml_repo_tag} "defaults/${yml_file_name}"
-        if [ $? == 0 ]; then
-            echo "File exist!"
+        echo "File exist!"
 
-            # At this point the definition of the YML file is correct,
-            # We will use a file from the git repository.
-            echo "Done!"
-            echo
-            echo "A correct YML was defined. This remote file will be used:"
-            echo "  ${yml_repo}/blob/${yml_repo_tag}/defaults/${yml_file_name}"
-            echo "==========================================="
-            echo
-        else
-            echo "Failed!"
-            echo
-            echo "File \"${yml_file_name}\" does not exist in release \"${yml_repo_tag}\", repository \"${yml_repo}\"!"
-            exit_on_error
-        fi
-
+        # At this point the definition of the YML file is correct,
+        # We will use a file from the git repository.
+        echo "Done!"
+        echo
+        echo "A correct YML repository, tag, and specific file were defined."
+        echo "This remote file will be used:"
+        echo "  ${yml_repo}/blob/${yml_repo_tag}/defaults/${yml_file_name}"
+        echo "==========================================="
+        echo
     else
         echo "Failed!"
         echo
-        echo "Release \"${yml_repo_tag}\" does not exist in repository \"${yml_repo}\"!"
+        echo "File \"${yml_file_name}\" does not exist in release \"${yml_repo_tag}\", repository \"${yml_repo}\"!"
         exit_on_error
     fi
 fi
