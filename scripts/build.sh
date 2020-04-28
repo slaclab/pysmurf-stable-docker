@@ -53,7 +53,7 @@ if [ -z ${yml_use_local+x} ]; then
         # Additionally, when an specific YML file is defined, add the '--disable-hw-detect'
         # option to the list of server arguments as well as the specified YML file using the
         # '-d' option.
-        server_args+=" --disable-hw-detect -d \/tmp\/fw\/${yml_file_name}"
+        server_args+=" --disable-hw-detect -d /tmp/fw/${yml_file_name}"
     fi
 
 else
@@ -61,14 +61,16 @@ else
 fi
 
 # Remove any white spaces and the beginning or end of the server argument string.
+server_args=$(echo ${server_args} | sed 's/^\s//g'| sed 's/\s$//g')
+
 # Then divide it into a list of quoted substring, divided by comas.
 # This is the format that the Dockerfile uses
-server_args_list=$(echo \"${server_args}\" | sed 's/^"\s/"/g'| sed 's/\s"$/"/g' | sed 's/\s/","/g')
+server_args_list=$(echo \"${server_args}\" | sed 's/\s/","/g')
 
 # Generate the Dockerfile from the template
 cat Dockerfile.template \
-        | sed s/%%PYSMURF_SERVER_BASE_VERSION%%/${pysmurf_server_base_version}/g \
-        | sed s/%%SERVER_ARGS%%/"${server_args_list}"/g \
+        | sed "s|%%SERVER_ARGS%%|"${server_args_list}"|g" \
+        | sed "s|%%PYSMURF_SERVER_BASE_VERSION%%|${pysmurf_server_base_version}|g" \
         > Dockerfile
 
 # Build the docker image and push it to Dockerhub
