@@ -63,5 +63,8 @@ yml_file_name=
 
 # Define server startup arguments
 # ===============================
-# - Add here a string with all the wanted startup arguments
+# - Add here a string with all the wanted startup arguments.
+#   Note that if you defined an specific YML file, then the arguments
+#   '--disable-hw-detect' as well as '-d' pointing to that file will be
+#   automatically added. So, you don't need to added then here.
 server_args=""
