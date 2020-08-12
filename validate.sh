@@ -29,6 +29,39 @@ check_if_public_asset_exist()
     curl --head --silent --fail ${repo}/releases/download/${tag}/${file} > /dev/null
 }
 
+# Check if a tag exists on a github pivate repository.
+# It requires the access token to be defined in $GITHUB_TOKEN.
+# Arguments:
+# - first: github private repository url,
+# - second: tag name
+check_if_private_tag_exist()
+{
+    # Need to insert the token in the url
+    local repo=$(echo $1 | sed -e "s|https://|https://${GITHUB_TOKEN}@|g")
+    local tag=$2
+    git ls-remote --refs --tag ${repo} | grep -q refs/tags/${tag} > /dev/null
+}
+
+# Check if a asset file exist on a tag version on a github private repository.
+# It requires the access token to be defined in $GITHUB_TOKEN.
+# Arguments:
+# - first: github private repository url,
+# - second: tag name,
+# - third: asset file name
+check_if_private_asset_exist()
+{
+    local repo=$(echo $1 | sed -e "s|https://github.com|https://api.github.com/repos|g")
+    local tag=$2
+    local file=$3
+
+    # Search the asset ID in the specified release
+    local r=$(curl -sH "Authorization: token ${GITHUB_TOKEN}" "${repo}/releases/tags/${tag}")
+    eval $(echo "${r}" | grep -C3 "name.:.\+${file}" | grep -w id | tr : = | tr -cd '[[:alnum:]]=')
+
+    # return is the asset tag was found
+    [ "${id}" ]
+}
+
 # Check if file exist on a tag version on a github repository
 # Arguments:
 # - first: github repository url,
@@ -149,11 +182,11 @@ else
     fi
 
     printf "Checking is tagged release exist...       "
-    check_if_public_tag_exist ${mcs_repo} ${mcs_repo_tag}
+    check_if_private_tag_exist ${mcs_repo} ${mcs_repo_tag}
     if [ $? == 0 ]; then
         echo "Release exist!"
         printf "Checking if file exist on that release... "
-        check_if_public_asset_exist ${mcs_repo} ${mcs_repo_tag} ${mcs_file_name}
+        check_if_private_asset_exist ${mcs_repo} ${mcs_repo_tag} ${mcs_file_name}
         if [ $? == 0 ]; then
             echo "File exist!"
 
@@ -234,11 +267,11 @@ else
     fi
 
     printf "Checking is tagged release exist...       "
-    check_if_public_tag_exist ${zip_repo} ${zip_repo_tag}
+    check_if_private_tag_exist ${zip_repo} ${zip_repo_tag}
     if [ $? == 0 ]; then
         echo "Release exist!"
         printf "Checking if file exist on that release... "
-        check_if_public_asset_exist ${zip_repo} ${zip_repo_tag} ${zip_file_name}
+        check_if_private_asset_exist ${zip_repo} ${zip_repo_tag} ${zip_file_name}
         if [ $? == 0 ]; then
             echo "File exist!"
 
