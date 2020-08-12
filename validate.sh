@@ -5,23 +5,23 @@
 #############
 # FUNCTIONS #
 #############
-# Check if a tag exists on a github repository
+# Check if a tag exists on a github public repository
 # Arguments:
-# - first: github repository url,
+# - first: github public repository url,
 # - second: tag name
-check_if_tag_exist()
+check_if_public_tag_exist()
 {
     local repo=$1
     local tag=$2
     git ls-remote --refs --tag ${repo} | grep -q refs/tags/${tag} > /dev/null
 }
 
-# Check if a asset file exist on a tag version on a github repository
+# Check if a asset file exist on a tag version on a github public repository
 # Arguments:
-# - first: github repository url,
+# - first: github public repository url,
 # - second: tag name,
 # - third: asset file name
-check_if_asset_exist()
+check_if_public_asset_exist()
 {
     local repo=$1
     local tag=$2
@@ -76,7 +76,7 @@ echo "Validating pysmurf-server-base version..."
 echo "==========================================="
 
 printf "Checking is tagged release exist...       "
-check_if_tag_exist ${pysmurf_repo} ${pysmurf_server_base_version}
+check_if_public_tag_exist ${pysmurf_repo} ${pysmurf_server_base_version}
 if [ $? != 0 ]; then
     echo "Failed!"
     echo
@@ -149,11 +149,11 @@ else
     fi
 
     printf "Checking is tagged release exist...       "
-    check_if_tag_exist ${mcs_repo} ${mcs_repo_tag}
+    check_if_public_tag_exist ${mcs_repo} ${mcs_repo_tag}
     if [ $? == 0 ]; then
         echo "Release exist!"
         printf "Checking if file exist on that release... "
-        check_if_asset_exist ${mcs_repo} ${mcs_repo_tag} ${mcs_file_name}
+        check_if_public_asset_exist ${mcs_repo} ${mcs_repo_tag} ${mcs_file_name}
         if [ $? == 0 ]; then
             echo "File exist!"
 
@@ -234,11 +234,11 @@ else
     fi
 
     printf "Checking is tagged release exist...       "
-    check_if_tag_exist ${zip_repo} ${zip_repo_tag}
+    check_if_public_tag_exist ${zip_repo} ${zip_repo_tag}
     if [ $? == 0 ]; then
         echo "Release exist!"
         printf "Checking if file exist on that release... "
-        check_if_asset_exist ${zip_repo} ${zip_repo_tag} ${zip_file_name}
+        check_if_public_asset_exist ${zip_repo} ${zip_repo_tag} ${zip_file_name}
         if [ $? == 0 ]; then
             echo "File exist!"
 
@@ -310,7 +310,7 @@ else
 fi
 
 printf "Checking is tagged release exist...       "
-check_if_tag_exist ${yml_repo} ${yml_repo_tag}
+check_if_public_tag_exist ${yml_repo} ${yml_repo_tag}
 if [ $? == 0 ]; then
     echo "Release exist!"
 else
