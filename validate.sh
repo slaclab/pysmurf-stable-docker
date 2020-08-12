@@ -55,11 +55,35 @@ check_if_private_asset_exist()
     local file=$3
 
     # Search the asset ID in the specified release
-    local r=$(curl -sH "Authorization: token ${GITHUB_TOKEN}" "${repo}/releases/tags/${tag}")
+    local r=$(curl --silent --header "Authorization: token ${GITHUB_TOKEN}" "${repo}/releases/tags/${tag}")
     eval $(echo "${r}" | grep -C3 "name.:.\+${file}" | grep -w id | tr : = | tr -cd '[[:alnum:]]=')
 
     # return is the asset tag was found
     [ "${id}" ]
+}
+
+# Download the asset file on a tagged version on a github private repository.
+# It requires the access token to be defined in $GITHUB_TOKEN.
+# Arguments:
+# - first: github private repository url,
+# - second: tag name,
+# - third: asset file name
+get_private_asset()
+{
+    local repo=$(echo $1 | sed -e "s|https://github.com|https://api.github.com/repos|g")
+    local tag=$2
+    local file=$3
+
+    # Check if the asset exist, and get it's ID
+    check_if_private_asset_exist ${repo} ${tag} ${file} || exit 1
+
+    echo "Downloading ${file}..."
+
+    # Try to download the asset
+    curl --fail --location --remote-header-name --remote-name --progress-bar \
+         --header "Authorization: token ${GITHUB_TOKEN}" \
+         --header "Accept: application/octet-stream" \
+         "${repo}/releases/assets/${id}"
 }
 
 # Check if file exist on a tag version on a github repository
