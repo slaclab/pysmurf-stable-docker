@@ -22,8 +22,8 @@ pysmurf_server_base_version=v4.1.0
 # - If 'mcs_repo_tag' is defined, local files will be ignored.
 # - Normally, you should need to change the repository URL.
 mcs_repo=https://github.com/slaclab/cryo-det
-mcs_repo_tag=MicrowaveMuxBpEthGen2_v0.3.0
-mcs_file_name=MicrowaveMuxBpEthGen2-0x00000031-20200707075937-ruckman-deac6ad.mcs.gz
+mcs_repo_tag=MicrowaveMuxBpEthGen2_v0.4.1
+mcs_file_name=MicrowaveMuxBpEthGen2-0x00000032-20200810095918-mdewart-e08c79a.mcs.gz
 
 # Define the ZIP file location:
 # =============================
@@ -41,7 +41,7 @@ mcs_file_name=MicrowaveMuxBpEthGen2-0x00000031-20200707075937-ruckman-deac6ad.mc
 # - Normally, you should need to change the repository URL.
 zip_repo=${mcs_repo}
 zip_repo_tag=${mcs_repo_tag}
-zip_file_name=rogue_MicrowaveMuxBpEthGen2_v0.3.0.zip
+zip_file_name=rogue_MicrowaveMuxBpEthGen2_v0.4.1.zip
 
 # Define the YML file location:
 # =============================
