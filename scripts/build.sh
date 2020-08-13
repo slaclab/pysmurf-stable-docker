@@ -32,7 +32,7 @@ if [ -z ${zip_use_local+x} ]; then
     echo "Getting zip file from ${zip_repo}"
 
     # Get the zip file asset
-    get_private_asset ${zip_repo} ${zip_repo_tag} ${zip_file_name}
+    get_private_asset ${zip_repo} ${zip_repo_tag} ${zip_file_name} || exit 1
 else
     echo "Using local zip file..."
 fi
