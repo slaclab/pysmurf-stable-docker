@@ -22,7 +22,7 @@ if [ -z ${mcs_use_local+x} ]; then
     echo "Getting mcs file from ${mcs_repo}"
 
     # Get the mcs file assent
-    get_private_asset ${mcs_repo} ${mcs_repo_tag} ${mcs_file_name} || exit 1
+    (cd local_files && get_private_asset ${mcs_repo} ${mcs_repo_tag} ${mcs_file_name}) || exit 1
 else
     echo "Using local mcs file..."
 fi
@@ -32,7 +32,7 @@ if [ -z ${zip_use_local+x} ]; then
     echo "Getting zip file from ${zip_repo}"
 
     # Get the zip file asset
-    get_private_asset ${zip_repo} ${zip_repo_tag} ${zip_file_name} || exit 1
+    (cd local_files && get_private_asset ${zip_repo} ${zip_repo_tag} ${zip_file_name}) || exit 1
 else
     echo "Using local zip file..."
 fi
