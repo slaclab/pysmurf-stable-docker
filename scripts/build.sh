@@ -6,9 +6,9 @@
 # Call the validation script
 . validate.sh
 
-# Check if the TRAVIS_TAG variable is defined.
-if [ -z ${TRAVIS_TAG+x} ]; then
-    echo "ERROR: TRAVIS_TAG environmental variable not defined!"
+# Check if the TAG variable is defined.
+if [ -z ${TAG+x} ]; then
+    echo "ERROR: TAG environmental variable not defined!"
     exit 1
 fi
 
@@ -82,10 +82,10 @@ cat Dockerfile.template \
 
 # Build the docker image and push it to Dockerhub
 docker build -t ${docker_org_name}/${docker_repo} . || exit 1
-docker tag ${docker_org_name}/${docker_repo} ${docker_org_name}/${docker_repo}:${TRAVIS_TAG} || exit 1
-docker push ${docker_org_name}/${docker_repo}:${TRAVIS_TAG} || exit 1
+docker tag ${docker_org_name}/${docker_repo} ${docker_org_name}/${docker_repo}:${TAG} || exit 1
+docker push ${docker_org_name}/${docker_repo}:${TAG} || exit 1
 
-echo "Docker image '${docker_org_name}/${docker_repo}:${TRAVIS_TAG}' pushed"
+echo "Docker image '${docker_org_name}/${docker_repo}:${TAG}' pushed"
 
 # Update the release information
 . scripts/generate_release_info.sh
