@@ -36,13 +36,6 @@ jobs:
           echo ::set-output name=release_name::"${release_name}"
           echo ::set-output name=release_description::"${release_description}"
 
-      # Generate Release info
-      - name: Generate Release info
-        id: gen_rel_info
-        env:
-
-        run: ./scripts/generate_release_info.sh
-
       # Update the "RELEASES.md" table
       - name: Update RELEASES table
         env:
