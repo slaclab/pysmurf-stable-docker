@@ -42,6 +42,7 @@ check_if_private_tag_exist()
     echo
     echo "-----"
     echo ${tag}
+    echo ${repo}
     echo $(git ls-remote --refs --tag ${repo})
     echo "-----"
     git ls-remote --refs --tag ${repo} | grep -q refs/tags/${tag} > /dev/null
