@@ -30,5 +30,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.SLACLAB_TOKEN }}
           DOCKERHUB_ORG_NAME: tidair
           DOCKERHUB_REPO: pysmurf-server
-        run: ./validate.sh
+        run: |
+          echo "Test:"
+          echo "======="
+          echio $(git ls-remote --refs --tag git@github.com:slaclab/cryo-det)
+          echo "======="
+
 
