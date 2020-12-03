@@ -9,9 +9,13 @@ jobs:
     name: Deploy Docker Image
     runs-on: ubuntu-latest
     steps:
-      # Checkout the code
+      # Checkout the code.
+      # We use ssh key authentication to be able to access other private
+      # repositories.
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.SLACLAB_KEY }}
 
       # Setup docker build environment
       - name: Set up Docker Buildx
@@ -25,12 +29,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Build and push the docker image
+      # Note about tokens: In this stage we need to use the SLACLAB TOKEN
+      # to be able to access the other private repositories (GITHUB_TOKEN
+      # only gives access to this repository).
       - name: Build and push image to Dockerhub
         id: build
         shell: bash
         env:
           REPO_SLUG: ${{ github.repository }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SLACLAB_TOKEN }}
           DOCKERHUB_ORG_NAME: tidair
           DOCKERHUB_REPO: pysmurf-server
         run: |
