@@ -34,7 +34,7 @@ jobs:
         run: |
           echo "Test:"
           echo "======="
-          echo $(git ls-remote --refs --tag https://jesusvasquez333:${SLACLAB_TOKEN}@github.com/slaclab/cryo-det)
+          echo $(git ls-remote --refs --tag https://${SLACLAB_TOKEN}@github.com/slaclab/cryo-det)
           echo "======="
 
 
