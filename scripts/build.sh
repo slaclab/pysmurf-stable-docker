@@ -6,10 +6,7 @@
 # Call the validation script
 . validate.sh
 
-# Other definitions, not defined by the user
-docker_org_name=tidair
-docker_repo=pysmurf-server
-this_repo=https://github.com/slaclab/pysmurf-stable-docker
+# Get the git tag, which will be used to tag the docker image
 tag=`git describe --tags --always`
 
 # Get mcs file

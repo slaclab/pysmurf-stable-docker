@@ -126,6 +126,7 @@ exit_on_success()
 # Other definitions, not defined by the user
 docker_org_name=tidair
 docker_repo=pysmurf-server
+this_repo=https://github.com/slaclab/pysmurf-stable-docker
 
 # Validate base docker image
 echo "==========================================="
