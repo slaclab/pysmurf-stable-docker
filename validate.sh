@@ -123,10 +123,6 @@ exit_on_success()
 # Load the user definitions
 . definitions.sh
 
-# Other definitions, not defined by the user
-docker_org_name=tidair
-docker_repo=pysmurf-server
-
 # Validate base docker image
 echo "==========================================="
 echo "Validating pysmurf-server-base version..."

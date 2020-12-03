@@ -73,11 +73,11 @@ cat Dockerfile.template \
         > Dockerfile
 
 # Build the docker image and push it to Dockerhub
-docker build -t ${docker_org_name}/${docker_repo} . || exit 1
-docker tag ${docker_org_name}/${docker_repo} ${docker_org_name}/${docker_repo}:${tag} || exit 1
-docker push ${docker_org_name}/${docker_repo}:${tag} || exit 1
+docker build -t ${DOCKERHUB_ORG_NAME}/${DOCKERHUB_REPO} . || exit 1
+docker tag ${DOCKERHUB_ORG_NAME}/${DOCKERHUB_REPO} ${DOCKERHUB_ORG_NAME}/${DOCKERHUB_REPO}:${tag} || exit 1
+docker push ${DOCKERHUB_ORG_NAME}/${DOCKERHUB_REPO}:${tag} || exit 1
 
-echo "Docker image '${docker_org_name}/${docker_repo}:${tag}' pushed"
+echo "Docker image '${DOCKERHUB_ORG_NAME}/${DOCKERHUB_REPO}:${tag}' pushed"
 
 # Update the release information
 . scripts/generate_release_info.sh

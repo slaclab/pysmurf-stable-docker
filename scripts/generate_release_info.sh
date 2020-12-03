@@ -3,7 +3,7 @@
 # Release information:
 
 ## Release name
-release_name="${docker_org_name}/${docker_repo}:${tag}"
+release_name="${DOCKERHUB_ORG_NAME}/${DOCKERHUB_REPO}:${tag}"
 
 ## Release description and New entry on the RELEASE.md file
 release_description="- **pysmurf-server-base:** [${pysmurf_server_base_version}](${pysmurf_repo}/releases/tag/${pysmurf_server_base_version})"
