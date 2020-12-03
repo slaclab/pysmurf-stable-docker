@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "Test:"
           echo "======="
-          echio $(git ls-remote --refs --tag git@github.com:slaclab/cryo-det)
+          echio $(git ls-remote --refs --tag https://${GITHUB_TOKEN}@github.com/slaclab/cryo-det)
           echo "======="
 
 
