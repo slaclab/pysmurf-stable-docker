@@ -39,6 +39,8 @@ check_if_private_tag_exist()
     # Need to insert the token in the url
     local repo=$(echo $1 | sed -e "s|https://|https://${GITHUB_TOKEN}@|g")
     local tag=$2
+    git ls-remote --refs --tag ${repo}
+    echo ${tag}
     git ls-remote --refs --tag ${repo} | grep -q refs/tags/${tag} > /dev/null
 }
 
