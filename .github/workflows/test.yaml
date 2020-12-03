@@ -12,17 +12,6 @@ jobs:
         with:
           ssh-key: ${{ secrets.SLACLAB_KEY }}
 
-      # Setup docker build environment
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      # Login to Dockerhub
-      - name: Login to Dockerhub
-        uses: docker/login-action@v1
-        with:
-          username: tidair
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       # Validate definitions
       - name: Validate definitions
         id: build
@@ -30,15 +19,8 @@ jobs:
         env:
           REPO_SLUG: ${{ github.repository }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACLAB_TOKEN: ${{ secrets.SLACLAB_TOKEN }}
           DOCKERHUB_ORG_NAME: tidair
           DOCKERHUB_REPO: pysmurf-server
-        run: |
-          echo "Test:"
-          echo "======="
-          echo $(git ls-remote --refs --tag git@github.com:slaclab/pysmurf)
-          echo "-------"
-          echo $(git ls-remote --refs --tag git@github.com:slaclab/cryo-det)
-          echo "======="
+        run: ./validate.sh
 
 
