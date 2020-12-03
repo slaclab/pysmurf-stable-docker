@@ -17,6 +17,11 @@ if [ -z ${DOCKERHUB_REPO+x} ]; then
     exit 1
 fi
 
+if [ -z ${REPO_SLUG+x} ]; then
+    echo "ERROR: REPO_SLUG environmental variable not defined!"
+    exit 1
+fi
+
 # Get the git tag, which will be used to tag the docker image
 tag=`git describe --tags --always`
 
