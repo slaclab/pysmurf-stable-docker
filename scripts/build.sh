@@ -6,6 +6,17 @@
 # Call the validation script
 . validate.sh
 
+# Check if the required environmental variables are defined.
+if [ -z ${DOCKERHUB_ORG_NAME+x} ]; then
+    echo "ERROR: DOCKERHUB_ORG_NAME environmental variable not defined!"
+    exit 1
+fi
+
+if [ -z ${DOCKERHUB_REPO+x} ]; then
+    echo "ERROR: DOCKERHUB_REPO environmental variable not defined!"
+    exit 1
+fi
+
 # Get the git tag, which will be used to tag the docker image
 tag=`git describe --tags --always`
 
