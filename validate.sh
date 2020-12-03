@@ -30,14 +30,14 @@ check_if_public_asset_exist()
 }
 
 # Check if a tag exists on a github pivate repository.
-# It requires the access token to be defined in $GITHUB_TOKEN.
+# It requires ssh key authentication.
 # Arguments:
 # - first: github private repository url,
 # - second: tag name
 check_if_private_tag_exist()
 {
     # Need to insert the token in the url
-    local repo=$(echo $1 | sed -e "s|https://|https://${GITHUB_TOKEN}@|g")
+    local repo=$(echo $1 | sed -e "s|https://github.com/|git@github.com:|g")
     local tag=$2
     echo
     echo "-----"
