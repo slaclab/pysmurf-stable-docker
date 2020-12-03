@@ -27,13 +27,14 @@ jobs:
         shell: bash
         env:
           REPO_SLUG: ${{ github.repository }}
-          GITHUB_TOKEN: ${{ secrets.SLACLAB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACLAB_TOKEN: ${{ secrets.SLACLAB_TOKEN }}
           DOCKERHUB_ORG_NAME: tidair
           DOCKERHUB_REPO: pysmurf-server
         run: |
           echo "Test:"
           echo "======="
-          echio $(git ls-remote --refs --tag https://${GITHUB_TOKEN}@github.com/slaclab/cryo-det)
+          echio $(git ls-remote --refs --tag https://${SLACLAB_TOKEN}@github.com/slaclab/cryo-det)
           echo "======="
 
 
