@@ -46,6 +46,7 @@ jobs:
           echo "======="
           echo "GITHUB_WORKSPACE = $GITHUB_WORKSPACE"
           echo $(pwd)
+          echo $(ls)
           echo $(git ls-remote --refs --tag https://27e79a8d876796c6fae53a41540323835574bb78@'github.com/slaclab/pysmurf)
           echo "-------"
           echo $(git ls-remote --refs --tag https://27e79a8d876796c6fae53a41540323835574bb78@github.com/slaclab/cryo-det)
