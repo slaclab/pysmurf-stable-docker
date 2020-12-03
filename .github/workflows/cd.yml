@@ -29,6 +29,7 @@ jobs:
         id: build
         shell: bash
         env:
+          REPO_SLUG: ${{ github.repository }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./scripts/build.sh
