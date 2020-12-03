@@ -27,7 +27,7 @@ jobs:
         shell: bash
         env:
           REPO_SLUG: ${{ github.repository }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SLACLAB_TOKEN }}
           DOCKERHUB_ORG_NAME: tidair
           DOCKERHUB_REPO: pysmurf-server
         run: ./validate.sh
