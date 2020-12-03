@@ -6,16 +6,11 @@
 # Call the validation script
 . validate.sh
 
-# Check if the TAG variable is defined.
-if [ -z ${TAG+x} ]; then
-    echo "ERROR: TAG environmental variable not defined!"
-    exit 1
-fi
-
 # Other definitions, not defined by the user
 docker_org_name=tidair
 docker_repo=pysmurf-server
 this_repo=https://github.com/slaclab/pysmurf-stable-docker
+tag=`git describe --tags --always`
 
 # Get mcs file
 if [ -z ${mcs_use_local+x} ]; then
@@ -82,10 +77,10 @@ cat Dockerfile.template \
 
 # Build the docker image and push it to Dockerhub
 docker build -t ${docker_org_name}/${docker_repo} . || exit 1
-docker tag ${docker_org_name}/${docker_repo} ${docker_org_name}/${docker_repo}:${TAG} || exit 1
-docker push ${docker_org_name}/${docker_repo}:${TAG} || exit 1
+docker tag ${docker_org_name}/${docker_repo} ${docker_org_name}/${docker_repo}:${tag} || exit 1
+docker push ${docker_org_name}/${docker_repo}:${tag} || exit 1
 
-echo "Docker image '${docker_org_name}/${docker_repo}:${TAG}' pushed"
+echo "Docker image '${docker_org_name}/${docker_repo}:${tag}' pushed"
 
 # Update the release information
 . scripts/generate_release_info.sh
