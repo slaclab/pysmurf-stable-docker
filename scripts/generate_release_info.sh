@@ -3,11 +3,11 @@
 # Release information:
 
 ## Release name
-release_name="${docker_org_name}/${docker_repo}:${TRAVIS_TAG}"
+release_name="${DOCKERHUB_ORG_NAME}/${DOCKERHUB_REPO}:${tag}"
 
 ## Release description and New entry on the RELEASE.md file
 release_description="- **pysmurf-server-base:** [${pysmurf_server_base_version}](${pysmurf_repo}/releases/tag/${pysmurf_server_base_version})"
-release_new_row="${TRAVIS_TAG} | ${pysmurf_server_base_version} | "
+release_new_row="${tag} | ${pysmurf_server_base_version} | "
 
 release_description+="
 - **MCS file:** "
@@ -16,7 +16,7 @@ if [ -z ${mcs_use_local+x} ]; then
     release_description+="[${mcs_file_name}](${mcs_repo}/releases/download/${mcs_repo_tag}/${mcs_file_name}) (tag [${mcs_repo_tag}](${mcs_repo}/releases/tag/${mcs_repo_tag}))"
     release_new_row+="(${mcs_repo_tag}) | "
 else
-    release_description+="Local copy [${mcs_file_name}](${this_repo}/blob/${TRAVIS_TAG}/local_files/${mcs_file_name})"
+    release_description+="Local copy [${mcs_file_name}](https://github.com/${REPO_SLUG}/blob/${tag}/local_files/${mcs_file_name})"
     release_new_row+="(local copy) | "
 fi
 
@@ -27,7 +27,7 @@ if [ -z ${zip_use_local+x} ]; then
     release_description+="[${zip_file_name}](${zip_repo}/releases/download/${zip_repo_tag}/${zip_file_name}) (tag [${zip_repo_tag}](${zip_repo}/releases/tag/${zip_repo_tag}))"
     release_new_row+="(${zip_repo_tag}) | "
 else
-    release_description+="Local copy [${zip_file_name}](${this_repo}/blob/${TRAVIS_TAG}/local_files/${zip_file_name})"
+    release_description+="Local copy [${zip_file_name}](https://github.com/${REPO_SLUG}/blob/${tag}/local_files/${zip_file_name})"
     release_new_row+="(local copy) | "
 fi
 
@@ -43,7 +43,7 @@ if [ -z ${yml_use_local+x} ]; then
     fi
     release_description+=" (tag [${yml_repo_tag}](${yml_repo}/releases/tag/${yml_repo_tag}))"
 else
-    release_description+="Local copy [${yml_file_name}](${this_repo}/blob/${TRAVIS_TAG}/local_files/${yml_file_name})"
+    release_description+="Local copy [${yml_file_name}](https://github.com/${REPO_SLUG}/blob/${tag}/local_files/${yml_file_name})"
     release_new_row+="(local copy) | "
 fi
 

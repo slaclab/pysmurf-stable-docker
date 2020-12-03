@@ -1,0 +1,92 @@
+name: CD
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy_docker:
+    name: Deploy Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code.
+      # We use ssh key authentication to be able to access other private
+      # repositories.
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.SLACLAB_KEY }}
+
+      # Setup docker build environment
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # Login to Dockerhub
+      - name: Login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: tidair
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Build and push the docker image
+      # Note about tokens: In this stage we need to use the SLACLAB TOKEN
+      # to be able to access the other private repositories (GITHUB_TOKEN
+      # only gives access to this repository).
+      - name: Build and push image to Dockerhub
+        id: build
+        shell: bash
+        env:
+          REPO_SLUG: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.SLACLAB_TOKEN }}
+          DOCKERHUB_ORG_NAME: tidair
+          DOCKERHUB_REPO: pysmurf-server
+        run: |
+          ./scripts/build.sh
+          . vars.env
+          release_description="${release_description//'%'/'%25'}"
+          release_description="${release_description//$'\n'/'%0A'}"
+          release_description="${release_description//$'\r'/'%0D'}"
+          echo ::set-output name=release_name::"${release_name}"
+          echo ::set-output name=release_description::"${release_description}"
+
+      # Update the "RELEASES.md" table
+      - name: Update RELEASES table
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_SLUG: ${{ github.repository }}
+        run: ./scripts/update_release_table.sh
+
+      # Create a new release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ steps.build.outputs.release_name }}
+          body: ${{ steps.build.outputs.release_description }}
+          draft: false
+          prerelease: false
+
+      # Attach the original Dockerfile file as asset
+      - name: Upload Dockerfile Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Dockerfile
+          asset_name: Dockerfile
+          asset_content_type: text/plain
+
+      # Attach the original definitions.sh script as asset
+      - name: Upload Definitions Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./definitions.sh
+          asset_name: definitions.sh
+          asset_content_type: text/plain
