@@ -34,7 +34,9 @@ jobs:
         run: |
           echo "Test:"
           echo "======="
-          echo $(git ls-remote --refs --tag https://cab7c4123a3302bf928b704f1772e68e3cb62d03@github.com/slaclab/cryo-det)
+          echo $(git ls-remote --refs --tag https://github.com/slaclab/pysmurf)
+          echo "-------"
+          echo $(git ls-remote --refs --tag https://27e79a8d876796c6fae53a41540323835574bb78@github.com/slaclab/cryo-det)
           echo "======="
 
 
