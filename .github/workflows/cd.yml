@@ -30,6 +30,7 @@ jobs:
         shell: bash
         env:
           TAG: ${{ github.ref }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./scripts/build.sh
           . vars.env
