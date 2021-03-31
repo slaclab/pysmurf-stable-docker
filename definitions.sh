@@ -7,7 +7,7 @@
 #   as a base.
 # - Normally, you should need to change the repository URL.
 pysmurf_repo=https://github.com/slaclab/pysmurf
-pysmurf_server_base_version=v4.2.1
+pysmurf_server_base_version=v4.3.0
 
 # Define the MCS file location:
 # =============================
@@ -41,7 +41,7 @@ mcs_file_name=MicrowaveMuxBpEthGen2-0x00000100-20210106214208-mdewart-e8c5d46.mc
 # - Normally, you should need to change the repository URL.
 zip_repo=${mcs_repo}
 zip_repo_tag=${mcs_repo_tag}
-zip_file_name=rogue_MicrowaveMuxBpEthGen2_v1.0.4.zip
+zip_file_name=rogue_${mcs_repo_tag}.zip
 
 # Define the YML file location:
 # =============================
