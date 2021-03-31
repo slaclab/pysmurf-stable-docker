@@ -12,3 +12,4 @@ v2.0.0 | v4.1.0 | MicrowaveMuxBpEthGen2-0x00000031-20200707075937-ruckman-deac6a
 v2.1.0 | v4.1.0 | MicrowaveMuxBpEthGen2-0x00000032-20200810095918-mdewart-e08c79a.mcs.gz (MicrowaveMuxBpEthGen2_v0.4.1) | rogue_MicrowaveMuxBpEthGen2_v0.4.1.zip (MicrowaveMuxBpEthGen2_v0.4.1) | Full repo (v1.3.0) | 
 v3.0.0 | v4.2.1 | MicrowaveMuxBpEthGen2-0x00000100-20210106214208-mdewart-e8c5d46.mcs.gz (MicrowaveMuxBpEthGen2_v1.0.4) | rogue_MicrowaveMuxBpEthGen2_v1.0.4.zip (MicrowaveMuxBpEthGen2_v1.0.4) | Full repo (v1.4.0) | 
 v4.0.0 | v4.3.0 | MicrowaveMuxBpEthGen2-0x00000100-20210106214208-mdewart-e8c5d46.mcs.gz (MicrowaveMuxBpEthGen2_v1.0.4) | rogue_MicrowaveMuxBpEthGen2_v1.0.4.zip (MicrowaveMuxBpEthGen2_v1.0.4) | Full repo (v1.4.0) | 
+v5.0.0 | v5.0.0 | MicrowaveMuxBpEthGen2-0x00000100-20210106214208-mdewart-e8c5d46.mcs.gz (MicrowaveMuxBpEthGen2_v1.0.4) | rogue_MicrowaveMuxBpEthGen2_v1.0.4.zip (MicrowaveMuxBpEthGen2_v1.0.4) | Full repo (v1.4.0) | 
