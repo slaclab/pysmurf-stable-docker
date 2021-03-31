@@ -7,7 +7,7 @@
 #   as a base.
 # - Normally, you should need to change the repository URL.
 pysmurf_repo=https://github.com/slaclab/pysmurf
-pysmurf_server_base_version=v4.3.0
+pysmurf_server_base_version=v5.0.0
 
 # Define the MCS file location:
 # =============================
